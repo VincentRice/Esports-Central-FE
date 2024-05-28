@@ -18,7 +18,6 @@ export class TournamentComponent implements OnInit {
   currentTournamentName: string = '';
 
   constructor(
-    private sanitizer: DomSanitizer,
     private displayTournamentService: DisplayTournamentService
   ) {}
 
@@ -26,8 +25,8 @@ export class TournamentComponent implements OnInit {
     this.fetchTournamentData();
   }
 
-  fetchScheduleData(tournamentName: string) {
-    this.displayTournamentService.getScheduleByTournamentName(tournamentName).subscribe(
+  fetchScheduleData(tournamentId: number) {
+    this.displayTournamentService.getScheduleByTournamentId(tournamentId).subscribe(
       (schedule: Schedule[]) => {
         this.currentSchedule = schedule;
         this.showSchedule = true;
@@ -57,7 +56,6 @@ export class TournamentComponent implements OnInit {
       }
 
       this.showTables = true;
-      this.showBracket = false; 
       this.showSchedule = false; 
 
       switch (game) {
@@ -88,12 +86,11 @@ export class TournamentComponent implements OnInit {
     );
   }
 
-  toggleBracketContent(tournamentName: string) {
+  toggleBracketContent(tournamentId: number, tournamentName: string) {
     this.currentTournamentName = tournamentName;
-    this.showBracket = !this.showBracket;
     this.currentSchedule = this.showSchedule ? this.currentSchedule : [];
     if (this.showBracket) {
-      this.fetchScheduleData(tournamentName);
+      this.fetchScheduleData(tournamentId);
     } else {
       this.showSchedule = false;
     }
@@ -101,16 +98,16 @@ export class TournamentComponent implements OnInit {
 
   toggleSchedule() {
     this.showSchedule = !this.showSchedule;
-    this.showBracket = !this.showSchedule;
+
   }
 
-  toggleTournamentSchedule(tournamentName: string) {
-    if (this.showSchedule && this.currentSchedule.length > 0 && this.currentSchedule[0]?.tournamentName === tournamentName) {
+  toggleTournamentSchedule(tournamentId: number, tournamentName: string) {
+    if (this.showSchedule && this.currentSchedule.length > 0 && this.currentTournamentName === tournamentName) {
       this.showSchedule = false;
       this.currentSchedule = [];
     } else {
-      this.fetchScheduleData(tournamentName);
-      this.showBracket = false;
+      this.fetchScheduleData(tournamentId);
+      this.currentTournamentName = tournamentName;
     }
   }
 }
