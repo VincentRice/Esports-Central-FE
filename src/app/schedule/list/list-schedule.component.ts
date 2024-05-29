@@ -66,11 +66,12 @@ export class ListScheduleComponent implements OnInit {
     this.currentPage = page;
     this.paginateSchedules();
   }
-
+/*
   deleteSchedule(id: string) {
     this.scheduleService.delete(id).subscribe(() => {
       this.schedules = this.schedules.filter(schedule => schedule.id !== Number(id)); // Convert id to number
       this.filterSchedules();
     });
   }
+}*/
 }

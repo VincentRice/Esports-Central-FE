@@ -19,6 +19,7 @@ import { PlayerModule } from './players/player.module';
 import { TournamentModule } from './tournament/tournament.module';
 import { ScheduleModule } from './schedule/schedule.module';
 
+
 @NgModule({
     imports: [
         BrowserModule,

@@ -125,10 +125,10 @@
         <td>{{ schedule.tournamentName}}</td>
         <td>
           <a [routerLink]="['edit', schedule.id]" class="btn btn-sm btn-primary mr-1">Edit</a>
-          <button (click)="deleteSchedule(schedule.id)" class="btn btn-sm btn-danger" [disabled]="schedule.isDeleting">
+          <!--<button (click)="deleteSchedule(schedule.id)" class="btn btn-sm btn-danger" [disabled]="schedule.isDeleting">
             <span *ngIf="schedule.isDeleting" class="spinner-border spinner-border-sm"></span>
             <span *ngIf="!schedule.isDeleting">Delete</span>
-          </button>
+          </button>-->
         </td>
       </tr>
       <tr *ngIf="isLoading">

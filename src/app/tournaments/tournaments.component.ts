@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { DisplayTournamentService } from '../_services/display-tournament.service';
 import { Schedule } from '../_models/schedule';
 
@@ -10,7 +9,6 @@ import { Schedule } from '../_models/schedule';
 })
 export class TournamentComponent implements OnInit {
   showTables = false;
-  showBracket = false;
   showSchedule = false;
 
   selectedTournamentData: any[] = [];
@@ -28,6 +26,7 @@ export class TournamentComponent implements OnInit {
   fetchScheduleData(tournamentId: number) {
     this.displayTournamentService.getScheduleByTournamentId(tournamentId).subscribe(
       (schedule: Schedule[]) => {
+        console.log('Schedule data:', schedule); 
         this.currentSchedule = schedule;
         this.showSchedule = true;
       },
@@ -84,21 +83,6 @@ export class TournamentComponent implements OnInit {
         console.error('Error fetching tournament data:', error);
       }
     );
-  }
-
-  toggleBracketContent(tournamentId: number, tournamentName: string) {
-    this.currentTournamentName = tournamentName;
-    this.currentSchedule = this.showSchedule ? this.currentSchedule : [];
-    if (this.showBracket) {
-      this.fetchScheduleData(tournamentId);
-    } else {
-      this.showSchedule = false;
-    }
-  }
-
-  toggleSchedule() {
-    this.showSchedule = !this.showSchedule;
-
   }
 
   toggleTournamentSchedule(tournamentId: number, tournamentName: string) {

@@ -108,7 +108,9 @@
     <h1>Players</h1>
     <div class="d-flex justify-content-between mb-2 input-group">
       <input type="text" [(ngModel)]="searchText" (ngModelChange)="filterPlayers()" class="form-control" placeholder="Search players...">
-      <a routerLink="/players/add" class="btn btn-sm btn-success">Add Player</a>
+      <div *ngIf="isAdmin">
+        <a routerLink="/players/add" class="btn btn-sm btn-success mb-2">Add Player</a>
+      </div>
     </div>
     <table class="table table-striped">
       <thead>
@@ -120,7 +122,7 @@
           <th>Role</th>
           <th>In-Game Name</th>
           <th>Team</th>
-          <th>Actions</th>
+          <th *ngIf="isAdmin">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -133,11 +135,13 @@
           <td>{{ player.ingameName }}</td>
           <td><a [routerLink]="['/teams/profile', player.teamId]">{{ player.teamDisplayName }}</a></td>
           <td>
+            <div *ngIf="isAdmin">
             <a [routerLink]="['/players/edit', player.playerId]" class="btn btn-sm btn-primary mr-1">Edit</a>
-            <button (click)="deletePlayer(player.playerId)" class="btn btn-sm btn-danger" [disabled]="player.isDeleting">
+            </div>
+            <!--<button (click)="deletePlayer(player.playerId)" class="btn btn-sm btn-danger" [disabled]="player.isDeleting">
               <span *ngIf="player.isDeleting" class="spinner-border spinner-border-sm"></span>
               <span *ngIf="!player.isDeleting">Delete</span>
-            </button>
+            </button>-->
           </td>
         </tr>
         <tr *ngIf="isLoading">

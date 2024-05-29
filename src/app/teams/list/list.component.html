@@ -101,7 +101,9 @@
   <h1>Teams</h1>
 
   <div class="actions">
+    <div *ngIf="isAdmin">
     <a routerLink="/teams/add" class="btn btn-sm btn-success mb-2">Create Team</a>
+    </div>
     <input type="text" [(ngModel)]="searchText" (ngModelChange)="filterTeams()" class="form-control mb-2" placeholder="Search teams...">
   </div>
 
@@ -114,7 +116,7 @@
         <th>Region</th>
         <th>Manager</th>
         <th>Players</th>
-        <th>ACTIONS</th>
+        <th *ngIf="isAdmin">ACTIONS</th>
       </tr>
     </thead>
     <tbody>
@@ -126,11 +128,13 @@
         <td>{{ team.manager }}</td>
         <td>{{ team.players?.length }}</td>
         <td>
+          <div *ngIf="isAdmin">
           <a [routerLink]="['edit', team.teamId]" class="btn btn-sm btn-primary mr-1">Edit</a>
-          <button (click)="deleteTeam(team.teamId)" class="btn btn-sm btn-danger" [disabled]="team.isDeleting">
+          </div>
+          <!--<button (click)="deleteTeam(team.teamId)" class="btn btn-sm btn-danger" [disabled]="team.isDeleting">
             <span *ngIf="team.isDeleting" class="spinner-border spinner-border-sm"></span>
             <span *ngIf="!team.isDeleting">Delete</span>
-          </button>
+          </button>-->
         </td>
       </tr>
       <tr *ngIf="isLoading">

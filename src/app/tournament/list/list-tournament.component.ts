@@ -70,6 +70,7 @@ export class TournamentListComponent implements OnInit {
     this.paginateTournaments();
   }
 
+/*
   deleteTournament(tournamentId: string)  {
     this.tournamentService.delete(tournamentId).subscribe({
       next: () => {
@@ -88,4 +89,5 @@ export class TournamentListComponent implements OnInit {
       }
     });
   }
+*/
 }
